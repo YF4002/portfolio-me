@@ -6,7 +6,6 @@ import { createClient, isSupabaseConfigured } from "../../lib/supabase/client";
 import { ProfileMenu } from "../components/profile-menu";
 
 type Draft = { name: string; role: string; link?: string; slug?: string; status?: "draft" | "published" };
-type DashboardProject = { id: string; title: string; language: string | null; stars: number; visible: boolean; featured: boolean };
 
 export default function DashboardPage() {
   const [draft, setDraft] = useState<Draft>({ name: "Alex Morgan", role: "Designer" });
@@ -14,7 +13,6 @@ export default function DashboardPage() {
   const [saveMessage, setSaveMessage] = useState("");
   const [portfolio, setPortfolio] = useState<{ slug: string; status: "draft" | "published"; title: string; bio: string } | null>(null);
   const [progress, setProgress] = useState(0);
-  const [projects, setProjects] = useState<DashboardProject[]>([]);
 
   useEffect(() => {
     async function loadDraft() {
@@ -58,13 +56,10 @@ export default function DashboardPage() {
           .eq("id", userId)
           .maybeSingle();
         if (profile) setDraft({ name: profile.display_name, role: profile.role });
-        const [{ count: sourceCount }, { count: projectCount }, { data: savedProjects }] = await Promise.all([
+        const [{ count: sourceCount }] = await Promise.all([
           supabase.from("sources").select("id", { count: "exact", head: true }).eq("portfolio_id", portfolio.id),
-          supabase.from("projects").select("id", { count: "exact", head: true }).eq("portfolio_id", portfolio.id).eq("visible", true),
-          supabase.from("projects").select("id, title, language, stars, visible, featured").eq("portfolio_id", portfolio.id).order("featured", { ascending: false }).order("stars", { ascending: false }).limit(6),
         ]);
-        setProjects(savedProjects ?? []);
-        const checks = [Boolean(profile?.display_name), Boolean(profile?.role), Boolean(portfolio.title), Boolean(portfolio.bio), Boolean(sourceCount), Boolean(projectCount), portfolio.status === "published"];
+        const checks = [Boolean(profile?.display_name), Boolean(profile?.role), Boolean(portfolio.title), Boolean(portfolio.bio), Boolean(sourceCount), portfolio.status === "published"];
         setProgress(Math.round((checks.filter(Boolean).length / checks.length) * 100));
         setSaveState("saved");
         return;
@@ -148,9 +143,8 @@ export default function DashboardPage() {
       </section>
       <section className="dashboard-grid">
         <div className="completion-card"><div className="card-top"><span className="mono-label">PORTFOLIO / {portfolio?.status === "published" ? "LIVE" : "DRAFT"}</span><span className="draft-status">● {portfolio?.status === "published" ? "PUBLISHED" : "DRAFT"}</span></div><div className="completion-progress"><div><strong>{progress}%</strong><span>complete</span></div><div className="progress-track"><span style={{ width: `${progress}%` }} /></div></div><h2>{portfolio?.status === "published" && progress >= 70 ? "It's taking shape." : "A good beginning."}</h2><p>{portfolio?.status === "published" ? "Your portfolio is live and ready to share with the world." : `${progress}% of your portfolio is ready. Keep shaping the details that make your work yours.`}</p>{portfolio?.status === "published" ? <a className="card-link" href={`/p/${portfolio.slug}`} target="_blank" rel="noreferrer">View live portfolio <span>↗</span></a> : <Link className="card-link" href="/dashboard/editor">Continue shaping <span>↗</span></Link>}</div>
-        <div className="next-card"><span className="step-number">NEXT UP</span><div className="next-icon">◎</div><h3>Connect your world</h3><p>Bring in a profile or project link and we&apos;ll find the pieces worth featuring.</p><Link className="button button-dark" href="/dashboard/editor">Add a source <span>↗</span></Link></div>
+        <div className="next-card"><span className="step-number">NEXT UP</span><div className="next-icon">◎</div><h3>Connect your world</h3><p>Bring in a profile link and we&apos;ll organize it for your portfolio.</p><Link className="button button-dark" href="/dashboard/editor">Add a source <span>↗</span></Link></div>
       </section>
-      <section className="dashboard-section"><div className="section-label"><span className="eyebrow">Your portfolio</span><span className="mono-label">{projects.length ? `${projects.length} RECENT PROJECTS` : "NO PROJECTS YET"}</span></div>{projects.length ? <div className="dashboard-project-list">{projects.map((project) => <div className="dashboard-project-row" key={project.id}><span className="dashboard-project-index">{project.featured ? "★" : "↗"}</span><span><strong>{project.title}</strong><small>{project.language || "Repository"}{project.stars > 0 ? ` · ${project.stars} stars` : ""}</small></span><span className={project.visible ? "project-visible" : "project-hidden"}>{project.visible ? "Visible" : "Hidden"}</span></div>)}<Link className="text-link dashboard-project-link" href="/dashboard/editor">Manage GitHub projects <span>↗</span></Link></div> : <div className="empty-projects"><span className="empty-star">✦</span><h2>Your best work<br /><em>starts here.</em></h2><p>Your portfolio is private while you build. Add a source to start filling it in.</p><Link className="text-link" href="/dashboard/editor">Open the editor <span>↗</span></Link></div>}</section>
     </main>
   );
 }
