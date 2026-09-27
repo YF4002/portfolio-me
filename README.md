@@ -39,6 +39,15 @@ npm install
 npm run cf:deploy
 ```
 
+For a Cloudflare dashboard build/deploy setup, use these exact commands:
+
+```text
+Build command: npm run cf:build
+Deploy command: npx wrangler deploy
+```
+
+Do not use only `npx wrangler deploy` as the build command. It expects `.open-next/worker.js`, which is created by `npm run cf:build`.
+
 Because this key starts with `NEXT_PUBLIC_`, it must be available during the OpenNext build so it can be included in the browser auth bundle. Add `NEXT_PUBLIC_SUPABASE_ANON_KEY` as a Cloudflare build/deployment variable, then redeploy. A runtime-only Wrangler secret is not sufficient for this client-side variable. The Supabase publishable/anon key is designed to be public; never use the service-role key.
 
 ## GitHub import
