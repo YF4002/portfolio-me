@@ -19,7 +19,7 @@ export function OnboardingForm() {
       return;
     }
     localStorage.setItem("portfolio-me-draft", JSON.stringify({ name: name.trim(), role, link: link.trim() }));
-    router.push("/dashboard");
+    router.push("/auth?next=/dashboard");
   }
 
   return (
