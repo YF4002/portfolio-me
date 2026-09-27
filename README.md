@@ -21,6 +21,17 @@ The first product surface is the marketing page and interactive first-draft prev
 
 Onboarding drafts are persisted to `profiles`, `portfolios`, and (when provided) `sources` after the user signs in. The local draft is retained until the database write succeeds.
 
+### Cloudflare deployment
+
+Cloudflare does not read your local `.env.local` file. In the Cloudflare Pages/Workers project settings, add these variables for the Production environment (and Preview if needed), then trigger a new deployment:
+
+```text
+NEXT_PUBLIC_SUPABASE_URL=https://qeziiaarrjbywtsmapqz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_publishable_anon_key
+```
+
+Use the Supabase publishable/anon key only. Never add the Supabase service-role key to client-visible or `NEXT_PUBLIC_` variables.
+
 ## GitHub import
 
 The editor accepts a public GitHub profile or repository URL. It previews public, non-forked repositories through `/api/github/preview`; users review the results before approved projects are written to the `projects` table. Private repositories and authenticated GitHub access will be added after the public import flow is validated.

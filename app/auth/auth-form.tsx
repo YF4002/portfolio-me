@@ -19,7 +19,7 @@ export function AuthForm({ initialMode = "signup" }: AuthFormProps) {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!configured) {
-      setMessage("Add your Supabase anon key to .env.local before continuing.");
+      setMessage("Supabase is not configured for this deployment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your hosting environment, then redeploy.");
       return;
     }
     const supabase = createClient();
