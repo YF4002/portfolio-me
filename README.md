@@ -32,6 +32,15 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_publishable_anon_key
 
 Use the Supabase publishable/anon key only. Never add the Supabase service-role key to client-visible or `NEXT_PUBLIC_` variables.
 
+This project deploys to Cloudflare Workers through the OpenNext adapter. Install dependencies, set the anon key as a Cloudflare variable or secret, and deploy with:
+
+```bash
+npm install
+npm run cf:deploy
+```
+
+Because this key starts with `NEXT_PUBLIC_`, it must be available during the OpenNext build so it can be included in the browser auth bundle. Add `NEXT_PUBLIC_SUPABASE_ANON_KEY` as a Cloudflare build/deployment variable, then redeploy. A runtime-only Wrangler secret is not sufficient for this client-side variable. The Supabase publishable/anon key is designed to be public; never use the service-role key.
+
 ## GitHub import
 
 The editor accepts a public GitHub profile or repository URL. It previews public, non-forked repositories through `/api/github/preview`; users review the results before approved projects are written to the `projects` table. Private repositories and authenticated GitHub access will be added after the public import flow is validated.

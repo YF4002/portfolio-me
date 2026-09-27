@@ -1,10 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/github/preview/route": "app/api/github/preview/route.js",
-  "/dashboard/editor/page": "app/dashboard/editor/page.js",
-  "/auth/page": "app/auth/page.js",
   "/onboarding/page": "app/onboarding/page.js",
-  "/p/[slug]/page": "app/p/[slug]/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/page": "app/page.js"
 }

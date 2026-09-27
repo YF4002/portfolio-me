@@ -1,8 +1,17 @@
 {
-  // ...
-  "vars": {
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlemlpYWFycmpieXd0c21hcHF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MTYyNTMsImV4cCI6MjEwNjA5MjI1M30.iFbD2YxSbw2y2zhQD5Lh7DStUSVmsWN9kxqUKO3YkHQ\"",
-    "NEXT_PUBLIC_SUPABASE_URL": "\"https://qeziiaarrjbywtsmapqz.supabase.co\""
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio-me",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
   },
-  // ...
+  "vars": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://qeziiaarrjbywtsmapqz.supabase.co"
+  },
+  "observability": {
+    "enabled": true
+  }
 }
