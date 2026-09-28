@@ -2,6 +2,8 @@
 
 Portfolio Me is a Next.js and TypeScript foundation for turning a creator's existing online work into a polished portfolio.
 
+Visit the site at https://portfolio-me.yahyafofana00.workers.dev/
+
 ## Local development
 
 ```bash
