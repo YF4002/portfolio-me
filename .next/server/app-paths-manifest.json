@@ -1,4 +1,10 @@
 {
+  "/api/github/preview/route": "app/api/github/preview/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/auth/page": "app/auth/page.js",
   "/onboarding/page": "app/onboarding/page.js",
-  "/page": "app/page.js"
+  "/p/[slug]/page": "app/p/[slug]/page.js",
+  "/page": "app/page.js",
+  "/dashboard/editor/page": "app/dashboard/editor/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
