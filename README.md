@@ -63,4 +63,29 @@ After saving a profile and approving projects, use **Publish portfolio** in the 
 The editor also supports optional public contact details: email, LinkedIn, and personal website. Apply [`003_profile_contact_links.sql`](./supabase/migrations/003_profile_contact_links.sql) to an existing database before saving these fields.
 
 You can also mark imported projects as featured. Apply [`004_featured_projects.sql`](./supabase/migrations/004_featured_projects.sql) to an existing database before using the feature. Featured projects appear first on the public portfolio.
-# portfolio-me
+
+## Screenshots
+
+### Landing page
+
+![Portfolio Me landing page](./public/screenshots/landing-page.png)
+
+### Sign in
+
+![Portfolio Me sign-in page](./public/screenshots/sign-in.png)
+
+### Dashboard
+
+![Portfolio Me dashboard](./public/screenshots/dashboard.png)
+
+### Portfolio editor — sources
+
+![Portfolio Me editor sources section](./public/screenshots/editor-sources.png)
+
+### Portfolio editor — profile and contact
+
+![Portfolio Me editor profile and contact sections](./public/screenshots/editor-profile-contact.png)
+
+### Published portfolio
+
+![Published Portfolio Me portfolio](./public/screenshots/published-portfolio.png)
